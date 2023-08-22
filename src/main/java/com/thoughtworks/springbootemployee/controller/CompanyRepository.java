@@ -38,4 +38,11 @@ public class CompanyRepository {
                 .filter(employee -> employee.getCompanyId().equals(id))
                 .collect(Collectors.toList());
     }
+
+    public List<Company> listCompanyByPage(Long pageNumber, Long pageSize) {
+        return companies.stream()
+                .skip((pageNumber - 1) * pageSize)
+                .limit(pageSize)
+                .collect(Collectors.toList());
+    }
 }
