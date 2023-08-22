@@ -61,4 +61,9 @@ public class CompanyRepository {
                 .max()
                 .orElse(START_ID_MINUS_ONE) + ID_INCREMENT;
     }
+
+    public void updateACompanyById(Company updateCompany, Long id) {
+        Company company = this.findById(id);
+        company.setName(updateCompany.getName());
+    }
 }
