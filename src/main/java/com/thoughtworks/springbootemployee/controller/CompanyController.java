@@ -55,7 +55,7 @@ public class CompanyController {
     public ResponseEntity<String> deleteACompanyId(@PathVariable Long id) {
         Company toBeRemovedCompany = companyRepository.findById(id);
         if (toBeRemovedCompany == null) {
-            throw new EmployeeNotFoundException();
+            throw new CompanyNotFoundException();
         }
         companyRepository.deleteACompanyById(toBeRemovedCompany);
         return new ResponseEntity<String> (toBeRemovedCompany.getName() + " was deleted from the company list.", HttpStatus.CREATED);
