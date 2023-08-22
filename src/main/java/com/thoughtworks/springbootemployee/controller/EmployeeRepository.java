@@ -13,11 +13,11 @@ public class EmployeeRepository {
     private static final long ID_INCREMENT = 1;
 
     static {
-        employees.add(new Employee(1l, "Alice", 30, "Female", 5000));
-        employees.add(new Employee(2l, "Bob", 31, "Male", 5000));
-        employees.add(new Employee(3l, "Carl", 32, "Male", 5000));
-        employees.add(new Employee(4l, "David", 33, "Male", 5000));
-        employees.add(new Employee(5l, "Ellen", 34, "Female", 5000));
+        employees.add(new Employee(1L, "Alice", 30, "Female", 5000));
+        employees.add(new Employee(2L, "Bob", 31, "Male", 5000));
+        employees.add(new Employee(3L, "Carl", 32, "Male", 5000));
+        employees.add(new Employee(4L, "David", 33, "Male", 5000));
+        employees.add(new Employee(5L, "Ellen", 34, "Female", 5000));
     }
 
     public List<Employee> listAll() {
