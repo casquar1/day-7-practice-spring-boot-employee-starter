@@ -5,13 +5,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.List;
 
 @RestController
 @RequestMapping(path = "/employees")
 public class EmployeeController {
 
-    private EmployeeRepository employeeRepository;
+    private final EmployeeRepository employeeRepository;
 
     @Autowired
     public EmployeeController(EmployeeRepository employeeRepository) {
@@ -43,5 +44,11 @@ public class EmployeeController {
     public ResponseEntity<String> updateAnEmployee(@RequestBody Employee employee, @PathVariable Long id) {
         Employee updatedEmployee = employeeRepository.updateAnEmployeeById(employee, id);
         return new ResponseEntity<>(updatedEmployee.getName() + "'s profile was updated.", HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> deleteAnEmployeeById(@PathVariable Long id) {
+        Employee removedEmployee = employeeRepository.deleteAnEmployeeById(id);
+        return new ResponseEntity<String> (removedEmployee.getName() + "'s record was deleted from the employee list.", HttpStatus.CREATED);
     }
 }

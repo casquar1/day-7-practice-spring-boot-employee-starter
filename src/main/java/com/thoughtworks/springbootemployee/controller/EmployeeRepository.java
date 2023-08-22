@@ -57,4 +57,17 @@ public class EmployeeRepository {
         employee.setSalary(updatedEmployee.getSalary());
         return employee;
     }
+
+    public Employee deleteAnEmployeeById(Long id) {
+        int employeeIdToBeDeleted = getEmployeeIndex(id);
+        return employees.remove(employeeIdToBeDeleted);
+    }
+
+    private int getEmployeeIndex(Long id) {
+        return employees.stream()
+                .filter(employee -> id == employee.getId())
+                .mapToInt(employees::indexOf)
+                .findFirst()
+                .orElseThrow(EmployeeNotFoundException::new);
+    }
 }
