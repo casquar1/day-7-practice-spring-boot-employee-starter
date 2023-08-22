@@ -44,8 +44,12 @@ public class EmployeeController {
 
     @DeleteMapping("{id}")
     public ResponseEntity<String> deleteAnEmployeeById(@PathVariable Long id) {
-        Employee removedEmployee = employeeRepository.deleteAnEmployeeById(id);
-        return new ResponseEntity<String> (removedEmployee.getName() + "'s record was deleted from the employee list.", HttpStatus.CREATED);
+        Employee toBeRemovedEmployee = employeeRepository.findById(id);
+        if (toBeRemovedEmployee == null) {
+            throw new EmployeeNotFoundException();
+        }
+        employeeRepository.deleteAnEmployeeById(toBeRemovedEmployee);
+        return new ResponseEntity<String> (toBeRemovedEmployee.getName() + "'s record was deleted from the employee list.", HttpStatus.CREATED);
     }
 
     @GetMapping(params = {"pageNumber", "pageSize"})

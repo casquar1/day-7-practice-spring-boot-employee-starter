@@ -58,17 +58,8 @@ public class EmployeeRepository {
         return employee;
     }
 
-    public Employee deleteAnEmployeeById(Long id) {
-        int employeeIdToBeDeleted = getEmployeeIndex(id);
-        return employees.remove(employeeIdToBeDeleted);
-    }
-
-    private int getEmployeeIndex(Long id) {
-        return employees.stream()
-                .filter(employee -> id == employee.getEmployeeId())
-                .mapToInt(employees::indexOf)
-                .findFirst()
-                .orElseThrow(EmployeeNotFoundException::new);
+    public void deleteAnEmployeeById(Employee employee) {
+        employees.remove(employee);
     }
 
     public List<Employee> listEmployeeByPage(Long pageNumber, Long pageSize) {
