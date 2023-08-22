@@ -1,6 +1,7 @@
 package com.thoughtworks.springbootemployee.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,8 +32,9 @@ public class EmployeeController {
         return employeeRepository.findByGender(gender);
     }
 
-    @PostMapping("/add")
-    public Employee addAnEmployee(@RequestBody Employee employee){
-        return employeeRepository.addAnEmployee(employee);
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Employee addAnEmployee(@RequestBody Employee employee) {
+        return employeeRepository.save(employee);
     }
 }
