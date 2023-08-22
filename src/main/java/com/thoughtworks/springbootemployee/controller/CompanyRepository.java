@@ -66,4 +66,8 @@ public class CompanyRepository {
         Company company = this.findById(id);
         company.setName(updateCompany.getName());
     }
+
+    public void deleteACompanyById(Company company) {
+        companies.remove(company);
+    }
 }

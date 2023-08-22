@@ -50,4 +50,14 @@ public class CompanyController {
         companyRepository.updateACompanyById(company, id);
         return new ResponseEntity<>( "Company name has been changed.", HttpStatus.CREATED);
     }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> deleteACompanyId(@PathVariable Long id) {
+        Company toBeRemovedCompany = companyRepository.findById(id);
+        if (toBeRemovedCompany == null) {
+            throw new EmployeeNotFoundException();
+        }
+        companyRepository.deleteACompanyById(toBeRemovedCompany);
+        return new ResponseEntity<String> (toBeRemovedCompany.getName() + " was deleted from the company list.", HttpStatus.CREATED);
+    }
 }
