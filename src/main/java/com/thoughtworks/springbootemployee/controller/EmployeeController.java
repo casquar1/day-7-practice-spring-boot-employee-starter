@@ -52,7 +52,7 @@ public class EmployeeController {
             throw new EmployeeNotFoundException();
         }
         employeeRepository.deleteAnEmployeeById(toBeRemovedEmployee);
-        return new ResponseEntity<String> (toBeRemovedEmployee.getName() + "'s record was deleted from the employee list.", HttpStatus.CREATED);
+        return new ResponseEntity<String> (toBeRemovedEmployee.getName() + "'s record was deleted from the employee list.", HttpStatus.NO_CONTENT);
     }
 
     @GetMapping(params = {"pageNumber", "pageSize"})
