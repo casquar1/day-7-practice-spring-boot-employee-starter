@@ -2,6 +2,7 @@ package com.thoughtworks.springbootemployee.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,5 +37,11 @@ public class EmployeeController {
     @ResponseStatus(HttpStatus.CREATED)
     public Employee addAnEmployee(@RequestBody Employee employee) {
         return employeeRepository.save(employee);
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<String> updateAnEmployee(@RequestBody Employee employee, @PathVariable Long id) {
+        Employee updatedEmployee = employeeRepository.updateAnEmployeeById(employee, id);
+        return new ResponseEntity<>(updatedEmployee.getName() + "'s profile was updated.", HttpStatus.CREATED);
     }
 }

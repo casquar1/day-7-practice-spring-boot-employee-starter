@@ -50,4 +50,11 @@ public class EmployeeRepository {
                 .max()
                 .orElse(START_ID_MINUS_ONE) + ID_INCREMENT;
     }
+
+    public Employee updateAnEmployeeById(Employee updatedEmployee, Long id) {
+        Employee employee = this.findById(id);
+        employee.setAge(updatedEmployee.getAge());
+        employee.setSalary(updatedEmployee.getSalary());
+        return employee;
+    }
 }
