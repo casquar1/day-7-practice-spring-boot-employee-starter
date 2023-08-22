@@ -70,4 +70,11 @@ public class EmployeeRepository {
                 .findFirst()
                 .orElseThrow(EmployeeNotFoundException::new);
     }
+
+    public List<Employee> listEmployeeByPage(Long pageNumber, Long pageSize) {
+        return employees.stream()
+                .skip((pageNumber - 1) * pageSize)
+                .limit(pageSize)
+                .collect(Collectors.toList());
+    }
 }

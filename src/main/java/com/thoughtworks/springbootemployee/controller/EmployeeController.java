@@ -51,4 +51,9 @@ public class EmployeeController {
         Employee removedEmployee = employeeRepository.deleteAnEmployeeById(id);
         return new ResponseEntity<String> (removedEmployee.getName() + "'s record was deleted from the employee list.", HttpStatus.CREATED);
     }
+
+    @GetMapping(params = {"pageNumber", "pageSize"})
+    public List<Employee> listEmployeeByPage(@RequestParam Long pageNumber, @RequestParam Long pageSize) {
+        return employeeRepository.listEmployeeByPage(pageNumber, pageSize);
+    }
 }
