@@ -33,7 +33,7 @@ public class EmployeeRepository {
                 .orElseThrow(EmployeeNotFoundException::new);
     }
 
-    public List<Employee> findByGender(String gender) {
+    public List<Employee> findEmployeeByGender(String gender) {
         return employees.stream()
                 .filter(employee -> employee.getGender().equals(gender))
                 .collect(Collectors.toList());
