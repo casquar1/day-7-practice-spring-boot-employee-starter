@@ -21,4 +21,9 @@ public class CompanyController {
     public List<Company> getCompanyList() {
         return companyRepository.listAll();
     }
+
+    @GetMapping("/{id}")
+    public Company findCompanyById(@PathVariable Long id) {
+        return companyRepository.findById(id);
+    }
 }
