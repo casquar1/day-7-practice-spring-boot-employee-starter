@@ -3,6 +3,7 @@ package com.thoughtworks.springbootemployee.repository;
 import com.thoughtworks.springbootemployee.exception.CompanyNotFoundException;
 import com.thoughtworks.springbootemployee.model.Company;
 import com.thoughtworks.springbootemployee.model.Employee;
+import com.thoughtworks.springbootemployee.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -53,7 +54,7 @@ public class CompanyRepository {
 
     public Company save(Company company) {
         Long id = generateNextId();
-        Company toBeSaveCompany = new Company(id, company.getName()); //TODO: this line can be removed since you are already adding a new company
+        Company toBeSaveCompany = new Company(id, company.getName());
         companies.add(toBeSaveCompany);
         return toBeSaveCompany;
     }
