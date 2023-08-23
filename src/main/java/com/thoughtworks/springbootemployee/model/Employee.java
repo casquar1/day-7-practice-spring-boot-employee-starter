@@ -1,8 +1,10 @@
 package com.thoughtworks.springbootemployee.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 public class Employee {
 
-    private final Long employeeId;
+    private Long employeeId;
     private final Long companyId;
     private final String name;
     private Integer age;
@@ -11,6 +13,15 @@ public class Employee {
 
     public Employee(Long employeeId, Long companyId, String name, Integer age, String gender, Integer salary) {
         this.employeeId = employeeId;
+        this.companyId = companyId;
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+        this.salary = salary;
+    }
+
+    @JsonCreator
+    public Employee(Long companyId, String name, Integer age, String gender, Integer salary) {
         this.companyId = companyId;
         this.name = name;
         this.age = age;
