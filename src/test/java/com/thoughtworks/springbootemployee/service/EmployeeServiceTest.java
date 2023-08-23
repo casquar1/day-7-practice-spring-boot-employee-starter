@@ -39,7 +39,7 @@ public class EmployeeServiceTest {
         assertEquals(23, employeeResponse.getAge());
         assertEquals("Female", employeeResponse.getGender());
         assertEquals(5000, employeeResponse.getSalary());
-        assertEquals(true, employeeResponse.isActive());
+        assertTrue(employeeResponse.isActive());
     }
     
     @Test
