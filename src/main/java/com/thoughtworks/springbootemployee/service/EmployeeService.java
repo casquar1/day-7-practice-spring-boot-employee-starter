@@ -12,7 +12,7 @@ public class EmployeeService {
     }
 
     public Employee create(Employee employee) {
-        if (employee.getAge() < 18) {
+        if (employee.hasInvalidAge()) {
             throw new EmployeeCreateException();
         }
         return employeeRepository.save(employee);
