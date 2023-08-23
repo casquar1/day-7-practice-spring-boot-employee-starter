@@ -13,6 +13,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
@@ -108,5 +110,27 @@ public class CompanyApiTests {
         //when
         mockMvcClient.perform(MockMvcRequestBuilders.delete("/companies/" + company.getId()))
                 .andExpect(status().isNoContent());
+    }
+
+    @Test
+    void should_return_list_of_companies_when_get_companies_given_pageNumber_and_pageSize() throws Exception {
+        //given
+        Company firstCompany = companyRepository.save(new Company(1L, "Book Depository"));
+        Company secondCompany = companyRepository.save(new Company(2L, "Fully Booked"));
+        companyRepository.save(new Company(3L, "Barnes and Nobles"));
+        MultiValueMap<String, String> paramsMap = new LinkedMultiValueMap<>();
+        Long pageNumber = 1L;
+        Long pageSize = 2L;
+        paramsMap.add("pageNumber", pageNumber.toString());
+        paramsMap.add("pageSize", pageSize.toString());
+
+        //when, then
+        mockMvcClient.perform(MockMvcRequestBuilders.get("/companies").params(paramsMap))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[0].id").value(firstCompany.getId()))
+                .andExpect(jsonPath("$[0].name").value(firstCompany.getName()))
+                .andExpect(jsonPath("$[1].id").value(secondCompany.getId()))
+                .andExpect(jsonPath("$[1].name").value(secondCompany.getName()));
     }
 }
