@@ -32,7 +32,7 @@ public class CompanyRepository {
 
     public Company findById(Long id) {
         return companies.stream()
-                .filter(employee -> employee.getId().equals(id))
+                .filter(company -> company.getId().equals(id))
                 .findFirst()
                 .orElseThrow(CompanyNotFoundException::new);
     }
