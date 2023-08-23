@@ -120,6 +120,8 @@ public class EmployeeServiceTest {
     void should_throw_exception_when_update_given_employee_service_and_employee_whose_status_is_inactive() {
         //given
         Employee employee = new Employee(1L, 1L, "Kate", 23, "Female", 5000, false);
+        when(mockedEmployeeRepository.findById(employee.getEmployeeId()))
+                .thenReturn(employee);
 
         //when
         EmployeeInactiveStatusException employeeInactiveStatusException = assertThrows(EmployeeInactiveStatusException.class, () ->

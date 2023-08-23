@@ -120,15 +120,12 @@ public class EmployeeApiTests {
     void should_return_updated_employee_age_and_salary_when_perform_put_employee_given_an_employee_id() throws Exception {
     //given
         Employee employee = employeeRepository.save(new Employee(1L, "Alice", 30, "Female", 5000));
-        String updatedEmployee =    "{\n" +
-                "     \"age\": 33, \n" +
-                "     \"salary\": 5500 \n" +
-                "}";
+        Employee updatedEmployee = new Employee(1L, "Alice", 33, "Female", 5500);
 
      //when, then
         mockMvcClient.perform(MockMvcRequestBuilders.put("/employees/" + employee.getEmployeeId())
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(updatedEmployee))
+                .content(new ObjectMapper().writeValueAsString(updatedEmployee)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.employeeId").value(employee.getEmployeeId()))
                 .andExpect(jsonPath("$.companyId").value(employee.getCompanyId()))

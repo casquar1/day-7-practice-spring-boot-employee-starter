@@ -42,6 +42,7 @@ public class EmployeeRepository {
     public Employee save(Employee employee) {
         Long id = generateNextId();
         Employee toBeSaveEmployee = new Employee(id, employee.getCompanyId(), employee.getName(), employee.getAge(), employee.getGender(), employee.getSalary(), employee.isActive());
+        toBeSaveEmployee.setActive(true);
         employees.add(toBeSaveEmployee);
         return toBeSaveEmployee;
     }

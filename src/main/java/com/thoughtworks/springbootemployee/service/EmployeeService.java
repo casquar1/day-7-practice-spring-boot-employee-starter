@@ -4,9 +4,11 @@ import com.thoughtworks.springbootemployee.exception.EmployeeCreateException;
 import com.thoughtworks.springbootemployee.exception.EmployeeInactiveStatusException;
 import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class EmployeeService {
     private final EmployeeRepository employeeRepository;
 
@@ -27,11 +29,12 @@ public class EmployeeService {
         employeeRepository.updateAnEmployeeById(id, matchedEmployee);
     }
 
-    public void update(Long id, Employee employee) {
-        if (!employee.isActive()) {
+    public Employee update(Long id, Employee employee) {
+        Employee matchedEmployee = employeeRepository.findById(id);
+        if (!matchedEmployee.isActive()) {
             throw new EmployeeInactiveStatusException();
         }
-        employeeRepository.updateAnEmployeeById(id, employee);
+        return employeeRepository.updateAnEmployeeById(id, employee);
     }
 
     public Employee findById(Long id) {
