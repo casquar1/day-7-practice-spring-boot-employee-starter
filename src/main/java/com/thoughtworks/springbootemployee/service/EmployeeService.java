@@ -6,6 +6,8 @@ import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class EmployeeService {
     private final EmployeeRepository employeeRepository;
@@ -37,5 +39,17 @@ public class EmployeeService {
 
     public Employee findById(Long id) {
         return employeeRepository.findById(id);
+    }
+
+    public List<Employee> findAll() {
+        return employeeRepository.listAll();
+    }
+
+    public List<Employee> findByGender(String gender) {
+        return employeeRepository.findEmployeeByGender(gender);
+    }
+
+    public List<Employee> findByPage(Long pageNumber, Long pageSize) {
+        return employeeRepository.listEmployeeByPage(pageNumber, pageSize);
     }
 }

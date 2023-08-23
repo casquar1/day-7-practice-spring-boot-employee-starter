@@ -15,24 +15,21 @@ import java.util.List;
 public class EmployeeController {
 
     @Autowired
-    private EmployeeRepository employeeRepository;
-
-    @Autowired
     private EmployeeService employeeService;
 
     @GetMapping
     public List<Employee> listAll() {
-        return employeeRepository.listAll();
+        return employeeService.findAll();
     }
 
     @GetMapping("/{id}")
     public Employee findEmployeeById(@PathVariable Long id) {
-        return employeeRepository.findById(id);
+        return employeeService.findById(id);
     }
 
     @GetMapping(params = {"gender"})
     public List<Employee> findEmployeeByGender(@RequestParam String gender) {
-        return employeeRepository.findEmployeeByGender(gender);
+        return employeeService.findByGender(gender);
     }
 
     @PostMapping
@@ -54,6 +51,6 @@ public class EmployeeController {
 
     @GetMapping(params = {"pageNumber", "pageSize"})
     public List<Employee> listEmployeeByPage(@RequestParam Long pageNumber, @RequestParam Long pageSize) {
-        return employeeRepository.listEmployeeByPage(pageNumber, pageSize);
+        return employeeService.findByPage(pageNumber, pageSize);
     }
 }
