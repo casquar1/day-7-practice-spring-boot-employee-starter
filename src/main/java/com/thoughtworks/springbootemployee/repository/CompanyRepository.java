@@ -53,7 +53,7 @@ public class CompanyRepository {
 
     public Company save(Company company) {
         Long id = generateNextId();
-        Company toBeSaveCompany = new Company(id, company.getName());
+        Company toBeSaveCompany = new Company(id, company.getName()); //TODO: this line can be removed since you are already adding a new company
         companies.add(toBeSaveCompany);
         return toBeSaveCompany;
     }
