@@ -1,6 +1,7 @@
 package com.thoughtworks.springbootemployee.service;
 
 import com.thoughtworks.springbootemployee.exception.EmployeeCreateException;
+import com.thoughtworks.springbootemployee.exception.EmployeeInactiveStatusException;
 import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -88,7 +89,7 @@ public class EmployeeServiceTest {
                 .thenReturn(employee);
 
      //when
-        employeeService.update(employee.getEmployeeId());
+        employeeService.update(employee.getEmployeeId(), employee);
      
      //then
         verify(mockedEmployeeRepository).updateAnEmployeeById(eq(employee.getEmployeeId()), argThat(tempEmployee -> {
@@ -101,5 +102,18 @@ public class EmployeeServiceTest {
             assertTrue(tempEmployee.isActive());
             return true;
         }));
+    }
+
+    @Test
+    void should_throw_exception_when_update_given_employee_service_and_employee_whose_status_is_inactive() {
+        //given
+        Employee employee = new Employee(1L, 1L, "Kate", 23, "Female", 5000, false);
+
+        //when
+        EmployeeInactiveStatusException employeeInactiveStatusException = assertThrows(EmployeeInactiveStatusException.class, () ->
+                employeeService.update(employee.getEmployeeId(), employee));
+
+        //then
+        assertEquals("Employee is inactive", employeeInactiveStatusException.getMessage());
     }
 }
