@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/company")
+@RequestMapping(path = "/companies")
 public class CompanyController {
 
     private final CompanyRepository companyRepository;
@@ -50,9 +50,8 @@ public class CompanyController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<String> updateACompany(@RequestBody Company company, @PathVariable Long id) {
-        companyRepository.updateACompanyById(company, id);
-        return new ResponseEntity<>( "Company name has been changed.", HttpStatus.CREATED);
+    public Company updateACompany(@RequestBody Company company, @PathVariable Long id) {
+        return companyRepository.updateACompanyById(company, id);
     }
 
     @DeleteMapping("{id}")
