@@ -61,6 +61,6 @@ public class CompanyController {
             throw new CompanyNotFoundException();
         }
         companyRepository.deleteACompanyById(toBeRemovedCompany);
-        return new ResponseEntity<String> (toBeRemovedCompany.getName() + " was deleted from the company list.", HttpStatus.CREATED);
+        return new ResponseEntity<String> (toBeRemovedCompany.getName() + " was deleted from the company list.", HttpStatus.NO_CONTENT);
     }
 }
