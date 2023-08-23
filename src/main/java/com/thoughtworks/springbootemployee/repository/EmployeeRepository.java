@@ -41,7 +41,7 @@ public class EmployeeRepository {
 
     public Employee save(Employee employee) {
         Long id = generateNextId();
-        Employee toBeSaveEmployee = new Employee(id, employee.getEmployeeId(), employee.getName(), employee.getAge(), employee.getGender(), employee.getSalary());
+        Employee toBeSaveEmployee = new Employee(id, employee.getCompanyId(), employee.getName(), employee.getAge(), employee.getGender(), employee.getSalary());
         employees.add(toBeSaveEmployee);
         return toBeSaveEmployee;
     }
@@ -69,5 +69,9 @@ public class EmployeeRepository {
                 .skip((pageNumber - 1) * pageSize)
                 .limit(pageSize)
                 .collect(Collectors.toList());
+    }
+
+    public void cleanAll() {
+        employees.clear();
     }
 }
