@@ -133,4 +133,14 @@ public class EmployeeApiTests {
                 .andExpect(jsonPath("$.gender").value(employee.getGender()))
                 .andExpect(jsonPath("$.salary").value(5500));
     }
+    
+    @Test
+    void should_return_no_content_status_when_delete_employee_given_an_employee_id_to_be_deleted() throws Exception {
+    //given
+        Employee employee = employeeRepository.save(new Employee(1L, "Alice", 30, "Female", 5000));
+     
+     //when
+        mockMvcClient.perform(MockMvcRequestBuilders.delete("/employees/" + employee.getEmployeeId()))
+                .andExpect(status().isNoContent());
+    }
 }
