@@ -23,4 +23,11 @@ public class EmployeeService {
         matchedEmployee.setActive(Boolean.FALSE);
         employeeRepository.updateAnEmployeeById(id, matchedEmployee);
     }
+
+    public void update(Long id) {
+        Employee matchedEmployee = employeeRepository.findById(id);
+        if (matchedEmployee.isActive()) {
+            employeeRepository.updateAnEmployeeById(id, matchedEmployee);
+        }
+    }
 }

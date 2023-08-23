@@ -68,10 +68,37 @@ public class EmployeeServiceTest {
      //then
         verify(mockedEmployeeRepository).updateAnEmployeeById(eq(employee.getEmployeeId()), argThat(tempEmployee -> {
             assertFalse(tempEmployee.isActive());
+            assertEquals(1L, tempEmployee.getEmployeeId());
+            assertEquals(1L, tempEmployee.getCompanyId());
             assertEquals("Kate", tempEmployee.getName());
             assertEquals(23, tempEmployee.getAge());
             assertEquals("Female", tempEmployee.getGender());
             assertEquals(5000, tempEmployee.getSalary());
+            return true;
+        }));
+    }
+    
+    @Test
+    void should_return_updated_employee_when_update_given_employee_service_and_employee_service() {
+    //given
+        Employee employee = new Employee(1L, 1L, "Kate", 23, "Female", 5000, true);
+        employee.setAge(33);
+        employee.setSalary(5500);
+        when(mockedEmployeeRepository.findById(employee.getEmployeeId()))
+                .thenReturn(employee);
+
+     //when
+        employeeService.update(employee.getEmployeeId());
+     
+     //then
+        verify(mockedEmployeeRepository).updateAnEmployeeById(eq(employee.getEmployeeId()), argThat(tempEmployee -> {
+            assertEquals(1L, tempEmployee.getEmployeeId());
+            assertEquals(1L, tempEmployee.getCompanyId());
+            assertEquals("Kate", tempEmployee.getName());
+            assertEquals(33, tempEmployee.getAge());
+            assertEquals("Female", tempEmployee.getGender());
+            assertEquals(5500, tempEmployee.getSalary());
+            assertTrue(tempEmployee.isActive());
             return true;
         }));
     }
