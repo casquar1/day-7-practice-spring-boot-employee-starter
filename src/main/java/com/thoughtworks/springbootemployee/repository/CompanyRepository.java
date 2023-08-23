@@ -74,4 +74,8 @@ public class CompanyRepository {
     public void deleteACompanyById(Company company) {
         companies.remove(company);
     }
+
+    public void cleanAll() {
+        companies.clear();
+    }
 }
