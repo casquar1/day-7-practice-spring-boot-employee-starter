@@ -40,7 +40,7 @@ public class EmployeeController {
 
     @PutMapping("{id}")
     public Employee updateAnEmployee(@RequestBody Employee employee, @PathVariable Long id) {
-        return employeeRepository.updateAnEmployeeById(employee, id);
+        return employeeRepository.updateAnEmployeeById(id, employee);
     }
 
     @DeleteMapping("{id}")
