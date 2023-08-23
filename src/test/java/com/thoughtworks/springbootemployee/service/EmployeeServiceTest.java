@@ -79,7 +79,7 @@ public class EmployeeServiceTest {
     }
     
     @Test
-    void should_return_updated_employee_when_update_given_employee_service_and_employee_service() {
+    void should_return_updated_employee_when_update_given_employee_service_and_employee_id() {
     //given
         Employee employee = new Employee(1L, 1L, "Kate", 23, "Female", 5000, true);
         employee.setAge(33);
