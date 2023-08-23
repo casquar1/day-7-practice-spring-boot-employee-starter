@@ -2,9 +2,9 @@ package com.thoughtworks.springbootemployee.controller;
 
 import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
+import com.thoughtworks.springbootemployee.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -16,6 +16,9 @@ public class EmployeeController {
 
     @Autowired
     private EmployeeRepository employeeRepository;
+
+    @Autowired
+    private EmployeeService employeeService;
 
     @GetMapping
     public List<Employee> listAll() {
@@ -35,19 +38,18 @@ public class EmployeeController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Employee addAnEmployee(@RequestBody Employee employee) {
-        return employeeRepository.save(employee);
+        return employeeService.create(employee);
     }
 
     @PutMapping("{id}")
     public Employee updateAnEmployee(@RequestBody Employee employee, @PathVariable Long id) {
-        return employeeRepository.updateAnEmployeeById(id, employee);
+        return employeeService.update(id, employee);
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<String> deleteAnEmployeeById(@PathVariable Long id) {
-        Employee toBeRemovedEmployee = employeeRepository.findById(id);
-        employeeRepository.deleteAnEmployeeById(toBeRemovedEmployee);
-        return new ResponseEntity<String> (toBeRemovedEmployee.getName() + "'s record was deleted from the employee list.", HttpStatus.NO_CONTENT);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteAnEmployeeById(@PathVariable Long id) {
+        employeeService.delete(id);
     }
 
     @GetMapping(params = {"pageNumber", "pageSize"})
