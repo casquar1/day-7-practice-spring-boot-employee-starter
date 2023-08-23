@@ -47,9 +47,6 @@ public class EmployeeController {
     @DeleteMapping("{id}")
     public ResponseEntity<String> deleteAnEmployeeById(@PathVariable Long id) {
         Employee toBeRemovedEmployee = employeeRepository.findById(id);
-        if (toBeRemovedEmployee == null) {
-            throw new EmployeeNotFoundException();
-        }
         employeeRepository.deleteAnEmployeeById(toBeRemovedEmployee);
         return new ResponseEntity<String> (toBeRemovedEmployee.getName() + "'s record was deleted from the employee list.", HttpStatus.NO_CONTENT);
     }
