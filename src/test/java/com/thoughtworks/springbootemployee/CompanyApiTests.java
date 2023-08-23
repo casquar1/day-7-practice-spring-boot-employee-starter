@@ -83,4 +83,20 @@ public class CompanyApiTests {
                 .andExpect(jsonPath("$.id").value(notNullValue()))
                 .andExpect(jsonPath("$.name").value(newCompany.getName()));
     }
+
+    @Test
+    void should_return_updated_company_when_perform_put_company_given_a_company_id() throws Exception {
+        //given
+        Company company = companyRepository.save(new Company(1L, "Book Depository"));
+        String updatedCompany =    "{\n" +
+                "     \"name\": \"Barnes and Nobles\"\n" +
+                "}";
+
+        //when, then
+        mockMvcClient.perform(MockMvcRequestBuilders.put("/companies/" + company.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(updatedCompany))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name").value("Barnes and Nobles"));
+    }
 }
