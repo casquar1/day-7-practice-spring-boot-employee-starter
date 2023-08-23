@@ -11,6 +11,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+
+import java.util.List;
 
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
@@ -142,5 +146,35 @@ public class EmployeeApiTests {
      //when
         mockMvcClient.perform(MockMvcRequestBuilders.delete("/employees/" + employee.getEmployeeId()))
                 .andExpect(status().isNoContent());
+    }
+    
+    @Test
+    void should_return_list_of_employees_when_get_employees_given_pageNumber_and_pageSize() throws Exception {
+    //given
+        Employee firstEmployee = employeeRepository.save(new Employee(1L, "Alice", 30, "Female", 5000));
+        Employee secondEmployee = employeeRepository.save(new Employee(2L, "Bob", 37, "Male", 4500));
+        employeeRepository.save(new Employee(2L, "Kate", 23, "Female", 2000));
+        MultiValueMap<String, String> paramsMap = new LinkedMultiValueMap<>();
+        Long pageNumber = 1L;
+        Long pageSize = 2L;
+        paramsMap.add("pageNumber", pageNumber.toString());
+        paramsMap.add("pageSize", pageSize.toString());
+     
+     //when, then
+        mockMvcClient.perform(MockMvcRequestBuilders.get("/employees").params(paramsMap))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[0].employeeId").value(firstEmployee.getEmployeeId()))
+                .andExpect(jsonPath("$[0].companyId").value(firstEmployee.getCompanyId()))
+                .andExpect(jsonPath("$[0].name").value(firstEmployee.getName()))
+                .andExpect(jsonPath("$[0].age").value(firstEmployee.getAge()))
+                .andExpect(jsonPath("$[0].gender").value(firstEmployee.getGender()))
+                .andExpect(jsonPath("$[0].salary").value(firstEmployee.getSalary()))
+                .andExpect(jsonPath("$[1].employeeId").value(secondEmployee.getEmployeeId()))
+                .andExpect(jsonPath("$[1].companyId").value(secondEmployee.getCompanyId()))
+                .andExpect(jsonPath("$[1].name").value(secondEmployee.getName()))
+                .andExpect(jsonPath("$[1].age").value(secondEmployee.getAge()))
+                .andExpect(jsonPath("$[1].gender").value(secondEmployee.getGender()))
+                .andExpect(jsonPath("$[1].salary").value(secondEmployee.getSalary()));
     }
 }
