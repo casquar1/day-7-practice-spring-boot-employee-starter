@@ -1,6 +1,7 @@
 package com.thoughtworks.springbootemployee.service;
 
 import com.thoughtworks.springbootemployee.exception.EmployeeCreateException;
+import com.thoughtworks.springbootemployee.exception.EmployeeInactiveStatusException;
 import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 
@@ -24,10 +25,10 @@ public class EmployeeService {
         employeeRepository.updateAnEmployeeById(id, matchedEmployee);
     }
 
-    public void update(Long id) {
-        Employee matchedEmployee = employeeRepository.findById(id);
-        if (matchedEmployee.isActive()) {
-            employeeRepository.updateAnEmployeeById(id, matchedEmployee);
+    public void update(Long id, Employee employee) {
+        if (!employee.isActive()) {
+            throw new EmployeeInactiveStatusException();
         }
+        employeeRepository.updateAnEmployeeById(id, employee);
     }
 }
