@@ -15,11 +15,11 @@ public class EmployeeRepository {
     private static final long ID_INCREMENT = 1;
 
     static {
-        employees.add(new Employee(1L, 1L, "Alice", 30, "Female", 5000));
-        employees.add(new Employee(2L, 2L,"Bob", 31, "Male", 3000));
-        employees.add(new Employee(3L, 3L,"Carl", 32, "Male", 4500));
-        employees.add(new Employee(4L, 4L,"David", 33, "Male", 3500));
-        employees.add(new Employee(5L, 5L,"Ellen", 34, "Female", 7000));
+        employees.add(new Employee(1L, 1L, "Alice", 30, "Female", 5000, true));
+        employees.add(new Employee(2L, 2L,"Bob", 31, "Male", 3000, true));
+        employees.add(new Employee(3L, 3L,"Carl", 32, "Male", 4500, true));
+        employees.add(new Employee(4L, 4L,"David", 33, "Male", 3500, true));
+        employees.add(new Employee(5L, 5L,"Ellen", 34, "Female", 7000, true));
     }
 
     public List<Employee> listAll() {
@@ -41,7 +41,7 @@ public class EmployeeRepository {
 
     public Employee save(Employee employee) {
         Long id = generateNextId();
-        Employee toBeSaveEmployee = new Employee(id, employee.getCompanyId(), employee.getName(), employee.getAge(), employee.getGender(), employee.getSalary());
+        Employee toBeSaveEmployee = new Employee(id, employee.getCompanyId(), employee.getName(), employee.getAge(), employee.getGender(), employee.getSalary(), employee.isActive());
         employees.add(toBeSaveEmployee);
         return toBeSaveEmployee;
     }

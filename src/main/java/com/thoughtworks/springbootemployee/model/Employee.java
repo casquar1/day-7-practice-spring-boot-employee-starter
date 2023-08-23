@@ -10,14 +10,16 @@ public class Employee {
     private Integer age;
     private final String gender;
     private Integer salary;
+    private Boolean isActive;
 
-    public Employee(Long employeeId, Long companyId, String name, Integer age, String gender, Integer salary) {
+    public Employee(Long employeeId, Long companyId, String name, Integer age, String gender, Integer salary, Boolean isActive) {
         this.employeeId = employeeId;
         this.companyId = companyId;
         this.name = name;
         this.age = age;
         this.gender = gender;
         this.salary = salary;
+        this.isActive = isActive;
     }
 
     @JsonCreator
@@ -59,5 +61,13 @@ public class Employee {
 
     public void setSalary(Integer salary) {
         this.salary = salary;
+    }
+
+    public void setActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
+
+    public Boolean isActive() {
+        return isActive;
     }
 }
