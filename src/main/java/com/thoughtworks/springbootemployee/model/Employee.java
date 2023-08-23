@@ -21,8 +21,9 @@ public class Employee {
     public Long getEmployeeId() {
         return employeeId;
     }
+    
     public Long getCompanyId() {
-        return employeeId;
+        return companyId;
     }
 
     public String getName() {
