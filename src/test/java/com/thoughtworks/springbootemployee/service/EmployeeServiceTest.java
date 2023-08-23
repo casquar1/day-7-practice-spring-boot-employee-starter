@@ -128,4 +128,24 @@ public class EmployeeServiceTest {
         //then
         assertEquals("Employee is inactive", employeeInactiveStatusException.getMessage());
     }
+
+    @Test
+    void should_return_employee_when_findById_given_employee_service_and_employee_id() {
+        //given
+        Employee employee = new Employee(1L, 1L, "Kate", 23, "Female", 5000, true);
+        when(mockedEmployeeRepository.findById(employee.getEmployeeId()))
+                .thenReturn(employee);
+
+        //when
+        Employee employeeResponse = employeeService.findById(employee.getEmployeeId());
+
+        //then
+        assertEquals(employee.getEmployeeId(), employeeResponse.getEmployeeId());
+        assertEquals(1L, employeeResponse.getCompanyId());
+        assertEquals("Kate", employeeResponse.getName());
+        assertEquals(23, employeeResponse.getAge());
+        assertEquals("Female", employeeResponse.getGender());
+        assertEquals(5000, employeeResponse.getSalary());
+        assertTrue(employeeResponse.isActive());
+    }
 }

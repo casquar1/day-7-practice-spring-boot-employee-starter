@@ -34,7 +34,7 @@ public class EmployeeService {
         employeeRepository.updateAnEmployeeById(id, employee);
     }
 
-    public List<Employee> findAll() {
-        return employeeRepository.listAll();
+    public Employee findById(Long id) {
+        return employeeRepository.findById(id);
     }
 }
