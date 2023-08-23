@@ -99,4 +99,14 @@ public class CompanyApiTests {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("Barnes and Nobles"));
     }
+
+    @Test
+    void should_return_no_content_status_when_delete_company_given_a_company_id_to_be_deleted() throws Exception {
+        //given
+        Company company = companyRepository.save(new Company(1L, "Book Depository"));
+
+        //when
+        mockMvcClient.perform(MockMvcRequestBuilders.delete("/companies/" + company.getId()))
+                .andExpect(status().isNoContent());
+    }
 }
