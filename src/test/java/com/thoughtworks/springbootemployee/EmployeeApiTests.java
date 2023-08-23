@@ -48,7 +48,7 @@ public class EmployeeApiTests {
     void should_return_the_employee_when_perform_get_employee_given_an_employee_id() throws Exception {
     //given
         Employee alice = employeeRepository.save(new Employee(1L, 1L, "Alice", 30, "Female", 5000));
-        employeeRepository.save(new Employee(2L, 2L, "Alice", 28, "Male", 5000));
+        employeeRepository.save(new Employee(2L, 2L, "Bob", 28, "Male", 5000));
 
      //when, then
         mockMvcClient.perform(MockMvcRequestBuilders.get("/employees/" + alice.getEmployeeId()))
@@ -69,5 +69,25 @@ public class EmployeeApiTests {
      //when
         mockMvcClient.perform(MockMvcRequestBuilders.get("/employees/" + notExistingId))
                 .andExpect(status().isNotFound());
+    }
+    
+    @Test
+    void should_return_the_employees_by_given_gender_when_perform_get_employees() throws Exception {
+    //given
+        Employee alice = employeeRepository.save(new Employee(1L, 1L, "Alice", 30, "Female", 5000));
+        employeeRepository.save(new Employee(2L, 2L, "Bob", 28, "Male", 5000));
+     
+     //when
+        mockMvcClient.perform(MockMvcRequestBuilders.get("/employees").param("gender", "Female"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$[0].employeeId").value(alice.getEmployeeId()))
+                .andExpect(jsonPath("$[0].companyId").value(alice.getCompanyId()))
+                .andExpect(jsonPath("$[0].name").value(alice.getName()))
+                .andExpect(jsonPath("$[0].age").value(alice.getAge()))
+                .andExpect(jsonPath("$[0].gender").value(alice.getGender()))
+                .andExpect(jsonPath("$[0].salary").value(alice.getSalary()));
+     
+     //then
     }
 }
