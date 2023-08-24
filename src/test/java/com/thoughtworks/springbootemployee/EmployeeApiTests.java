@@ -69,8 +69,7 @@ public class EmployeeApiTests {
     @Test
     void should_return_404_not_found_when_perform_given_a_not_existing_id() throws  Exception {
     //given
-        //TODO: use primitive type for long
-        Long notExistingId = 99L;
+        long notExistingId = 99L;
 
      //when
         mockMvcClient.perform(MockMvcRequestBuilders.get("/employees/" + notExistingId))
@@ -151,10 +150,10 @@ public class EmployeeApiTests {
         Employee secondEmployee = employeeRepository.save(new Employee(2L, "Bob", 37, "Male", 4500));
         employeeRepository.save(new Employee(2L, "Kate", 23, "Female", 2000));
         MultiValueMap<String, String> paramsMap = new LinkedMultiValueMap<>();
-        Long pageNumber = 1L;
-        Long pageSize = 2L;
-        paramsMap.add("pageNumber", pageNumber.toString());
-        paramsMap.add("pageSize", pageSize.toString());
+        long pageNumber = 1L;
+        long pageSize = 2L;
+        paramsMap.add("pageNumber", String.valueOf(pageNumber));
+        paramsMap.add("pageSize", String.valueOf(pageSize));
      
      //when, then
         mockMvcClient.perform(MockMvcRequestBuilders.get("/employees").params(paramsMap))
