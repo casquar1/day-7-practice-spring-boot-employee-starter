@@ -128,10 +128,10 @@ public class CompanyApiTests {
         Company secondCompany = companyRepository.create(new Company(2L, "Fully Booked"));
         companyRepository.create(new Company(3L, "Barnes and Nobles"));
         MultiValueMap<String, String> paramsMap = new LinkedMultiValueMap<>();
-        Long pageNumber = 1L;
-        Long pageSize = 2L;
-        paramsMap.add("pageNumber", pageNumber.toString());
-        paramsMap.add("pageSize", pageSize.toString());
+        long pageNumber = 1L;
+        long pageSize = 2L;
+        paramsMap.add("pageNumber", String.valueOf(pageNumber));
+        paramsMap.add("pageSize", String.valueOf(pageSize));
 
         //when, then
         mockMvcClient.perform(MockMvcRequestBuilders.get("/companies").params(paramsMap))
