@@ -34,7 +34,7 @@ public class CompanyController {
 
     @GetMapping(params = {"pageNumber", "pageSize"})
     public List<Company> listCompanyByPage(@RequestParam Long pageNumber, @RequestParam Long pageSize) {
-        return companyService.listCompanyByPage(pageNumber, pageSize);
+        return companyService.findByPage(pageNumber, pageSize);
     }
 
     @PostMapping

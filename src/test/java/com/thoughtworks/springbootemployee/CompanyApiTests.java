@@ -48,7 +48,7 @@ public class CompanyApiTests {
     @Test
     void should_return_all_given_companies_when_perform_get_companies() throws Exception {
         //given
-        Company company = companyRepository.save(new Company(1L, "Book Depository"));
+        Company company = companyRepository.create(new Company(1L, "Book Depository"));
 
         //when, then
         mockMvcClient.perform(MockMvcRequestBuilders.get("/companies"))
@@ -61,8 +61,8 @@ public class CompanyApiTests {
     @Test
     void should_return_the_company_when_perform_get_company_given_a_company_id() throws Exception {
         //given
-        Company company = companyRepository.save(new Company(1L, "Book Depository"));
-        companyRepository.save(new Company(2L, "Barnes and Nobles"));
+        Company company = companyRepository.create(new Company(1L, "Book Depository"));
+        companyRepository.create(new Company(2L, "Barnes and Nobles"));
 
         //when, then
         mockMvcClient.perform(MockMvcRequestBuilders.get("/companies/" + company.getId()))
@@ -84,7 +84,7 @@ public class CompanyApiTests {
     @Test
     void should_return_the_created_company_when_perform_post_companies_given_new_company_with_JSON_format() throws Exception {
         //given
-        Company newCompany = companyRepository.save(new Company(1L, "Book Depository"));
+        Company newCompany = companyRepository.create(new Company(1L, "Book Depository"));
 
         //when, then
         mockMvcClient.perform(MockMvcRequestBuilders.post("/companies")
@@ -98,7 +98,7 @@ public class CompanyApiTests {
     @Test
     void should_return_updated_company_when_perform_put_company_given_a_company_id() throws Exception {
         //given
-        Company company = companyRepository.save(new Company(1L, "Book Depository"));
+        Company company = companyRepository.create(new Company(1L, "Book Depository"));
         String updatedCompany =    "{\n" +
                 "     \"name\": \"Barnes and Nobles\"\n" +
                 "}";
@@ -114,7 +114,7 @@ public class CompanyApiTests {
     @Test
     void should_return_no_content_status_when_delete_company_given_a_company_id_to_be_deleted() throws Exception {
         //given
-        Company company = companyRepository.save(new Company(1L, "Book Depository"));
+        Company company = companyRepository.create(new Company(1L, "Book Depository"));
 
         //when
         mockMvcClient.perform(MockMvcRequestBuilders.delete("/companies/" + company.getId()))
@@ -124,9 +124,9 @@ public class CompanyApiTests {
     @Test
     void should_return_list_of_companies_when_get_companies_given_pageNumber_and_pageSize() throws Exception {
         //given
-        Company firstCompany = companyRepository.save(new Company(1L, "Book Depository"));
-        Company secondCompany = companyRepository.save(new Company(2L, "Fully Booked"));
-        companyRepository.save(new Company(3L, "Barnes and Nobles"));
+        Company firstCompany = companyRepository.create(new Company(1L, "Book Depository"));
+        Company secondCompany = companyRepository.create(new Company(2L, "Fully Booked"));
+        companyRepository.create(new Company(3L, "Barnes and Nobles"));
         MultiValueMap<String, String> paramsMap = new LinkedMultiValueMap<>();
         Long pageNumber = 1L;
         Long pageSize = 2L;
@@ -146,7 +146,7 @@ public class CompanyApiTests {
     @Test
     void should_return_list_of_employees_when_get_employees_given_a_company_id() throws Exception {
         //given
-        Company firstCompany = companyRepository.save(new Company(1L, "Book Depository"));
+        Company firstCompany = companyRepository.create(new Company(1L, "Book Depository"));
         Employee firstEmployee = employeeRepository.create(new Employee(1L, "Alice", 30, "Female", 5000));
         Employee secondEmployee = employeeRepository.create(new Employee(1L, "Bob", 37, "Male", 4500));
 

@@ -19,27 +19,27 @@ public class CompanyService {
     }
 
     public List<Employee> findEmployeesByCompanyId(Long id) {
-        return companyRepository.getEmployeesByCompanyId(id);
+        return companyRepository.findEmployeesByCompanyId(id);
     }
 
     public List<Company> findAll() {
-        return companyRepository.listAll();
+        return companyRepository.findAll();
     }
 
-    public List<Company> listCompanyByPage(Long pageNumber, Long pageSize) {
-        return companyRepository.listCompanyByPage(pageNumber, pageSize);
+    public List<Company> findByPage(Long pageNumber, Long pageSize) {
+        return companyRepository.findByPage(pageNumber, pageSize);
     }
 
     public Company create(Company company) {
-        return companyRepository.save(company);
+        return companyRepository.create(company);
     }
 
     public Company update(Company company, Long id) {
-        return companyRepository.updateACompanyById(company, id);
+        return companyRepository.update(company, id);
     }
 
     public void delete(Long id) {
         Company matchedCompany = companyRepository.findById(id);
-        companyRepository.deleteACompanyById(matchedCompany);
+        companyRepository.delete(matchedCompany);
     }
 }

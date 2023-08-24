@@ -26,7 +26,7 @@ public class CompanyRepository {
         companies.add(new Company(5L, "The Tiny Tassel"));
     }
 
-    public List<Company> listAll() {
+    public List<Company> findAll() {
         return companies;
     }
 
@@ -37,21 +37,21 @@ public class CompanyRepository {
                 .orElseThrow(CompanyNotFoundException::new);
     }
 
-    public List<Employee> getEmployeesByCompanyId(Long id) {
+    public List<Employee> findEmployeesByCompanyId(Long id) {
         return employeeRepository.findAll()
                 .stream()
                 .filter(employee -> employee.getCompanyId().equals(id))
                 .collect(Collectors.toList());
     }
 
-    public List<Company> listCompanyByPage(Long pageNumber, Long pageSize) {
+    public List<Company> findByPage(Long pageNumber, Long pageSize) {
         return companies.stream()
                 .skip((pageNumber - 1) * pageSize)
                 .limit(pageSize)
                 .collect(Collectors.toList());
     }
 
-    public Company save(Company company) {
+    public Company create(Company company) {
         Long id = generateNextId();
         Company toBeSaveCompany = new Company(id, company.getName());
         companies.add(toBeSaveCompany);
@@ -65,13 +65,13 @@ public class CompanyRepository {
                 .orElse(START_ID_MINUS_ONE) + ID_INCREMENT;
     }
 
-    public Company updateACompanyById(Company updateCompany, Long id) {
+    public Company update(Company updateCompany, Long id) {
         Company company = this.findById(id);
         company.setName(updateCompany.getName());
         return company;
     }
 
-    public void deleteACompanyById(Company company) {
+    public void delete(Company company) {
         companies.remove(company);
     }
 
