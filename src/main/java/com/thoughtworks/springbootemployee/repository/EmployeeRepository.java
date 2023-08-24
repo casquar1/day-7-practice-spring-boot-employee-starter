@@ -61,10 +61,6 @@ public class EmployeeRepository {
         return employee;
     }
 
-    public void deleteAnEmployeeById(Employee employee) {
-        employees.remove(employee);
-    }
-
     public List<Employee> listEmployeeByPage(Long pageNumber, Long pageSize) {
         return employees.stream()
                 .skip((pageNumber - 1) * pageSize)
