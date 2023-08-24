@@ -20,13 +20,13 @@ public class EmployeeService {
         if (employee.hasInvalidAge()) {
             throw new EmployeeCreateException();
         }
-        return employeeRepository.save(employee);
+        return employeeRepository.create(employee);
     }
 
     public void delete(Long id) {
         Employee matchedEmployee = employeeRepository.findById(id);
         matchedEmployee.setActive(Boolean.FALSE);
-        employeeRepository.updateAnEmployeeById(id, matchedEmployee);
+        employeeRepository.update(id, matchedEmployee);
     }
 
     public Employee update(Long id, Employee employee) {
@@ -34,7 +34,7 @@ public class EmployeeService {
         if (!matchedEmployee.isActive()) {
             throw new EmployeeInactiveStatusException();
         }
-        return employeeRepository.updateAnEmployeeById(id, employee);
+        return employeeRepository.update(id, employee);
     }
 
     public Employee findById(Long id) {
@@ -42,14 +42,14 @@ public class EmployeeService {
     }
 
     public List<Employee> findAll() {
-        return employeeRepository.listAll();
+        return employeeRepository.findAll();
     }
 
     public List<Employee> findByGender(String gender) {
-        return employeeRepository.findEmployeeByGender(gender);
+        return employeeRepository.findByGender(gender);
     }
 
     public List<Employee> findByPage(Long pageNumber, Long pageSize) {
-        return employeeRepository.listEmployeeByPage(pageNumber, pageSize);
+        return employeeRepository.findByPage(pageNumber, pageSize);
     }
 }

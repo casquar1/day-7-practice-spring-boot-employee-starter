@@ -27,7 +27,7 @@ public class EmployeeServiceTest {
     //given
         Employee employee = new Employee(null, 1L, "Kate", 23, "Female", 5000, true);
         Employee savedEmployee = new Employee(1L, 1L, "Kate", 23, "Female", 5000, true);
-        when(mockedEmployeeRepository.save(employee)).thenReturn(savedEmployee);
+        when(mockedEmployeeRepository.create(employee)).thenReturn(savedEmployee);
      
      //when
         Employee employeeResponse = employeeService.create(employee);
@@ -79,7 +79,7 @@ public class EmployeeServiceTest {
         employeeService.delete(employee.getEmployeeId());
      
      //then
-        verify(mockedEmployeeRepository).updateAnEmployeeById(eq(employee.getEmployeeId()), argThat(tempEmployee -> {
+        verify(mockedEmployeeRepository).update(eq(employee.getEmployeeId()), argThat(tempEmployee -> {
             assertFalse(tempEmployee.isActive());
             assertEquals(1L, tempEmployee.getEmployeeId());
             assertEquals(1L, tempEmployee.getCompanyId());
@@ -104,7 +104,7 @@ public class EmployeeServiceTest {
         employeeService.update(employee.getEmployeeId(), employee);
      
      //then
-        verify(mockedEmployeeRepository).updateAnEmployeeById(eq(employee.getEmployeeId()), argThat(tempEmployee -> {
+        verify(mockedEmployeeRepository).update(eq(employee.getEmployeeId()), argThat(tempEmployee -> {
             assertEquals(1L, tempEmployee.getEmployeeId());
             assertEquals(1L, tempEmployee.getCompanyId());
             assertEquals("Kate", tempEmployee.getName());

@@ -22,7 +22,7 @@ public class EmployeeRepository {
         employees.add(new Employee(5L, 5L,"Ellen", 34, "Female", 7000, true));
     }
 
-    public List<Employee> listAll() {
+    public List<Employee> findAll() {
         return employees;
     }
 
@@ -33,13 +33,13 @@ public class EmployeeRepository {
                 .orElseThrow(EmployeeNotFoundException::new);
     }
 
-    public List<Employee> findEmployeeByGender(String gender) {
+    public List<Employee> findByGender(String gender) {
         return employees.stream()
                 .filter(employee -> employee.getGender().equals(gender))
                 .collect(Collectors.toList());
     }
 
-    public Employee save(Employee employee) {
+    public Employee create(Employee employee) {
         Long id = generateNextId();
         Employee toBeSaveEmployee = new Employee(id, employee.getCompanyId(), employee.getName(), employee.getAge(), employee.getGender(), employee.getSalary(), employee.isActive());
         toBeSaveEmployee.setActive(true);
@@ -54,14 +54,14 @@ public class EmployeeRepository {
                 .orElse(START_ID_MINUS_ONE) + ID_INCREMENT;
     }
 
-    public Employee updateAnEmployeeById(Long id, Employee updatedEmployee) {
+    public Employee update(Long id, Employee updatedEmployee) {
         Employee employee = this.findById(id);
         employee.setAge(updatedEmployee.getAge());
         employee.setSalary(updatedEmployee.getSalary());
         return employee;
     }
 
-    public List<Employee> listEmployeeByPage(Long pageNumber, Long pageSize) {
+    public List<Employee> findByPage(Long pageNumber, Long pageSize) {
         return employees.stream()
                 .skip((pageNumber - 1) * pageSize)
                 .limit(pageSize)

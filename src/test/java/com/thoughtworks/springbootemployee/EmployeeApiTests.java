@@ -35,7 +35,7 @@ public class EmployeeApiTests {
     @Test
     void should_return_all_given_employees_when_perform_get_employees() throws Exception {
     //given
-        Employee alice = employeeRepository.save(new Employee(1L, "Alice", 30, "Female", 5000));
+        Employee alice = employeeRepository.create(new Employee(1L, "Alice", 30, "Female", 5000));
      
      //when, then
         mockMvcClient.perform(MockMvcRequestBuilders.get("/employees"))
@@ -52,8 +52,8 @@ public class EmployeeApiTests {
     @Test
     void should_return_the_employee_when_perform_get_employee_given_an_employee_id() throws Exception {
     //given
-        Employee alice = employeeRepository.save(new Employee(1L, "Alice", 30, "Female", 5000));
-        employeeRepository.save(new Employee(2L, "Bob", 28, "Male", 5000));
+        Employee alice = employeeRepository.create(new Employee(1L, "Alice", 30, "Female", 5000));
+        employeeRepository.create(new Employee(2L, "Bob", 28, "Male", 5000));
 
      //when, then
         mockMvcClient.perform(MockMvcRequestBuilders.get("/employees/" + alice.getEmployeeId()))
@@ -79,8 +79,8 @@ public class EmployeeApiTests {
     @Test
     void should_return_the_employees_by_given_gender_when_perform_get_employees() throws Exception {
     //given
-        Employee alice = employeeRepository.save(new Employee(1L, "Alice", 30, "Female", 5000));
-        employeeRepository.save(new Employee(2L, "Bob", 28, "Male", 5000));
+        Employee alice = employeeRepository.create(new Employee(1L, "Alice", 30, "Female", 5000));
+        employeeRepository.create(new Employee(2L, "Bob", 28, "Male", 5000));
      
      //when
         mockMvcClient.perform(MockMvcRequestBuilders.get("/employees").param("gender", "Female"))
@@ -99,7 +99,7 @@ public class EmployeeApiTests {
     @Test
     void should_return_the_employee_created_when_perform_post_employees_given_new_employee_with_JSON_format() throws Exception {
         //given
-            Employee newEmployee = employeeRepository.save(new Employee(1L, "Alice", 30, "Female", 5000));
+            Employee newEmployee = employeeRepository.create(new Employee(1L, "Alice", 30, "Female", 5000));
 
         //when, then
         mockMvcClient.perform(MockMvcRequestBuilders.post("/employees")
@@ -117,7 +117,7 @@ public class EmployeeApiTests {
     @Test
     void should_return_updated_employee_age_and_salary_when_perform_put_employee_given_an_employee_id() throws Exception {
     //given
-        Employee employee = employeeRepository.save(new Employee(1L, "Alice", 30, "Female", 5000));
+        Employee employee = employeeRepository.create(new Employee(1L, "Alice", 30, "Female", 5000));
         Employee updatedEmployee = new Employee(1L, "Alice", 33, "Female", 5500);
 
      //when, then
@@ -136,7 +136,7 @@ public class EmployeeApiTests {
     @Test
     void should_return_no_content_status_when_delete_employee_given_an_employee_id_to_be_deleted() throws Exception {
     //given
-        Employee employee = employeeRepository.save(new Employee(1L, "Alice", 30, "Female", 5000));
+        Employee employee = employeeRepository.create(new Employee(1L, "Alice", 30, "Female", 5000));
      
      //when
         mockMvcClient.perform(MockMvcRequestBuilders.delete("/employees/" + employee.getEmployeeId()))
@@ -146,9 +146,9 @@ public class EmployeeApiTests {
     @Test
     void should_return_list_of_employees_when_get_employees_given_pageNumber_and_pageSize() throws Exception {
     //given
-        Employee firstEmployee = employeeRepository.save(new Employee(1L, "Alice", 30, "Female", 5000));
-        Employee secondEmployee = employeeRepository.save(new Employee(2L, "Bob", 37, "Male", 4500));
-        employeeRepository.save(new Employee(2L, "Kate", 23, "Female", 2000));
+        Employee firstEmployee = employeeRepository.create(new Employee(1L, "Alice", 30, "Female", 5000));
+        Employee secondEmployee = employeeRepository.create(new Employee(2L, "Bob", 37, "Male", 4500));
+        employeeRepository.create(new Employee(2L, "Kate", 23, "Female", 2000));
         MultiValueMap<String, String> paramsMap = new LinkedMultiValueMap<>();
         long pageNumber = 1L;
         long pageSize = 2L;

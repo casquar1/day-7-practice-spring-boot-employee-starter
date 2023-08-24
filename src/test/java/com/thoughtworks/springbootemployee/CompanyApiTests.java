@@ -147,8 +147,8 @@ public class CompanyApiTests {
     void should_return_list_of_employees_when_get_employees_given_a_company_id() throws Exception {
         //given
         Company firstCompany = companyRepository.save(new Company(1L, "Book Depository"));
-        Employee firstEmployee = employeeRepository.save(new Employee(1L, "Alice", 30, "Female", 5000));
-        Employee secondEmployee = employeeRepository.save(new Employee(1L, "Bob", 37, "Male", 4500));
+        Employee firstEmployee = employeeRepository.create(new Employee(1L, "Alice", 30, "Female", 5000));
+        Employee secondEmployee = employeeRepository.create(new Employee(1L, "Bob", 37, "Male", 4500));
 
         //when, then
         mockMvcClient.perform(MockMvcRequestBuilders.get("/companies/" + firstCompany.getId() + "/employees"))

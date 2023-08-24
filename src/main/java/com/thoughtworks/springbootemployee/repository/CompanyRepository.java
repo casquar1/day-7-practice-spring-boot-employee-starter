@@ -38,7 +38,7 @@ public class CompanyRepository {
     }
 
     public List<Employee> getEmployeesByCompanyId(Long id) {
-        return employeeRepository.listAll()
+        return employeeRepository.findAll()
                 .stream()
                 .filter(employee -> employee.getCompanyId().equals(id))
                 .collect(Collectors.toList());
