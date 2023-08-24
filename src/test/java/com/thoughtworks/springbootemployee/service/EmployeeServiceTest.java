@@ -60,6 +60,7 @@ public class EmployeeServiceTest {
         //given
         Employee employee = new Employee(1L, "Kate", 66 , "Female", 5000);
         //when
+        //TODO: replace statement lambda with expression lambda
         EmployeeCreateException employeeCreateException = assertThrows(EmployeeCreateException.class, () -> {
             employeeService.create(employee);
         });

@@ -21,6 +21,7 @@ import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+//TODO: remove unused import statement
 @SpringBootTest
 @AutoConfigureMockMvc
 public class EmployeeApiTests {
@@ -71,6 +72,7 @@ public class EmployeeApiTests {
     @Test
     void should_return_404_not_found_when_perform_given_a_not_existing_id() throws  Exception {
     //given
+        //TODO: use primitive type for long
         Long notExistingId = 99L;
 
      //when
